@@ -14,13 +14,7 @@ const toDefine = (configs) => {
 }
 
 module.exports = {
-  // devtool: 'eval',
-  entry: [
-    'react-hot-loader/patch',
-    './src'
-  ],
-
-  // entry: './src',
+  entry: './src',
   output: {
     path: path.join(__dirname, '../dist'),
     filename: '[name].js',
@@ -50,7 +44,8 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
-            presets: ['next']
+            presets: ['next'],
+            plugins: ['react-hot-loader/babel'],
           }
         },
       }, {

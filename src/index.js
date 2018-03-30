@@ -1,13 +1,16 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Users from './components/users';
-import './css/base.scss'
+import App from './route';
+
+const domRoot = document.getElementById('root')
 
 ReactDom.render((
-  <Router>
-    <div>
-      <Route exact path='/' component={Users} />
-    </div>
-  </Router>
-), document.getElementById('root'));
+  <App />
+), domRoot);
+
+if (module.hot) {
+  module.hot.accept('./route', () => {
+    const NextApp = require('./route').default;
+    ReactDom.render(NextApp, domRoot)
+  })
+}
