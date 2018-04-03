@@ -1,15 +1,17 @@
 const path = require('path')
 const webpack = require('webpack')
 const configs = require('./config')
-const DefinePlugin      = webpack.DefinePlugin
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const toDefine = (configs) => {
+const { DefinePlugin } = webpack
+
+
+const toDefine = (configurations) => {
   const option = {}
-  for (let key in configs) {
+  Object.keys(configurations).forEach(key => {
     option[key] = JSON.stringify(configs[key])
-  }
+  })
   return option
 }
 
@@ -24,13 +26,13 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({ template: 'index.html' }),
     new DefinePlugin(toDefine(configs)),
-    new ExtractTextPlugin(`[name].css`),
+    new ExtractTextPlugin('[name].css'),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      '@': path.join(__dirname, './')
-    }
+      '@': path.join(__dirname, './'),
+    },
   },
   node: {
     fs: 'empty',
@@ -40,26 +42,29 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-          }
-        },
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
+          },
+          'eslint-loader',
+        ],
       }, {
         test: /\.[s]?css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
-        })
+          use: ['css-loader', 'sass-loader'],
+        }),
       },
-    ]
+    ],
   },
   devtool: 'source-map',
   devServer: {
     port: 3009,
     publicPath: '/',
     contentBase: './',
-    historyApiFallback: true
+    historyApiFallback: true,
   },
 }

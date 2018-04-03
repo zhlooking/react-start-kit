@@ -1,5 +1,5 @@
 function FooPromise(executor) {
-  let context = this
+  const context = this
   context.status = 'pending'
   context.value = undefined
   context.reason = undefined
@@ -21,8 +21,8 @@ function FooPromise(executor) {
   executor(resolve, reject)
 }
 
-FooPromise.prototype.then = function(onFulfilled, onRejected) {
-  let context = this
+FooPromise.prototype.then = (onFulfilled, onRejected) => {
+  const context = this
   if (context.status === 'fulfilled') {
     onFulfilled(context.value)
   }

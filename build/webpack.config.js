@@ -3,50 +3,51 @@ const configs = require('./config')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const UglifyJsPlugin    = webpack.optimize.UglifyJsPlugin
-const DefinePlugin      = webpack.DefinePlugin
+
+const { UglifyJsPlugin } = webpack.optimize
+const { DefinePlugin } = webpack
 
 
-const toDefine = (configs) => {
+const toDefine = (configuration) => {
   const option = {}
-  for (let key in configs) {
+  Object.keys(configuration).forEach(key => {
     option[key] = JSON.stringify(configs[key])
-  }
+  })
   return option
 }
 
 module.exports = {
   entry: {
     main: path.join(__dirname, '../src/index.js'),
-    vendor: ['react', 'react-dom']
+    vendor: ['react', 'react-dom'],
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '',
     filename: '[name].[chunkhash:8].js',
-    chunkFilename: '[name].[chunkhash:8].js'
+    chunkFilename: '[name].[chunkhash:8].js',
   },
   plugins: [
     new webpack.HashedModuleIdsPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
-      debug: false
+      debug: false,
     }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest'],
-      minChunks: Infinity
+      minChunks: Infinity,
     }),
     new webpack.optimize.CommonsChunkPlugin({
       async: true,
       children: true,
-      minChunks: 4
+      minChunks: 4,
     }),
     // new webpack.optimize.ModuleConcatenationPlugin(),
     new ExtractTextPlugin({
       // contentHash https://goo.gl/VtpvRo
       filename: '[name].[contenthash:16].css',
       disable: false,
-      allChunks: false
+      allChunks: false,
     }),
     new DefinePlugin(toDefine(configs)),
     new UglifyJsPlugin({
@@ -57,19 +58,19 @@ module.exports = {
         warnings: false,
         drop_console: true,
         collapse_vars: true,
-        reduce_vars: true
+        reduce_vars: true,
       },
     }),
     new HtmlWebpackPlugin({
       template: '../index.html',
-      inject: true
+      inject: true,
     }),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
       '@': path.join(__dirname, '../'),
-    }
+    },
   },
   module: {
     rules: [
@@ -79,9 +80,6 @@ module.exports = {
         include: [
           path.join(__dirname, '../src'),
         ],
-        options: {
-          presets: ['next']
-        }
       }, {
         test: /\.css$/,
         use: ['style-loader', 'css-loader?-autoprefixer'],
@@ -94,9 +92,9 @@ module.exports = {
             'resolve-url-loader',
             'sass-loader?sourceMap',
           ],
-          fallback: "style-loader",
+          fallback: 'style-loader',
         }),
       },
-    ]
+    ],
   },
 }

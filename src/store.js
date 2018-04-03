@@ -1,4 +1,4 @@
-import { observable, computed } from 'mobx';
+import { observable, computed } from 'mobx'
 
 class UserStore {
   @observable users = ['Tom', 'Jerry']
@@ -15,4 +15,4 @@ class UserStore {
   }
 }
 
-export default new UserStore
+export default UserStore

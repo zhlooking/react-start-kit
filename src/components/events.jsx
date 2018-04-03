@@ -1,27 +1,30 @@
-import React from 'react';
-
+import React from 'react'
 
 export default class Container extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {clickTime: 0};
-    this.handleClick = this.handleClick.bind(this);
+  constructor(props) {
+    super(props)
+    this.state = { clickTime: 0 }
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(){
-    console.log('React Event grandpa is fired');
-    this.setState({clickTime: new Date().getTime()})
-  };
-
-  componentDidMount(){
-    document.getElementById('grandpa').addEventListener('click',function(e){
-      console.log('native Event GrandPa is fired');
+  componentDidMount() {
+    document.getElementById('grandpa').addEventListener('click', () => {
+      console.log('native Event GrandPa is fired')
     })
   }
 
-  render(){
+  handleClick() {
+    console.log('React Event grandpa is fired')
+    this.setState({ clickTime: Date.now() })
+  }
+
+  render() {
     return (
-      <div id='grandpa' style={{ backgroundColor: 'lightcoral', padding: 10 }} onClick={this.handleClick}>
+      <div
+        id="grandpa"
+        style={{ backgroundColor: 'lightCoral', padding: 10 }}
+        onClick={this.handleClick}
+      >
         <p>GrandPa Clicked at: {this.state.clickTime}</p>
         <InnerPanel />
       </div>
@@ -30,27 +33,27 @@ export default class Container extends React.Component {
 }
 
 class InnerPanel extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {clickTime:0};
-    this.handleClick=this.handleClick.bind(this);
+  constructor(props) {
+    super(props)
+    this.state = { clickTime: 0 }
+    this.handleClick = this.handleClick.bind(this)
   }
 
-  componentDidMount(){
-    document.getElementById('dad').addEventListener('click',function(e){
-      console.log('native Event Dad is fired');
-      e.stopPropagation();
+  componentDidMount() {
+    document.getElementById('dad').addEventListener('click', (e) => {
+      console.log('native Event Dad is fired')
+      e.stopPropagation()
     })
   }
 
-  handleClick(){
+  handleClick() {
     console.log('React Event Dad is fired')
-    this.setState({clickTime: new Date().getTime()})
+    this.setState({ clickTime: Date.now() })
   }
 
-  render(){
+  render() {
     return (
-      <div id='dad' style={{ backgroundColor: 'lightBlue', padding: 10 }} onClick={this.handleClick}>
+      <div id="dad" style={{ backgroundColor: 'lightBlue', padding: 10 }} onClick={this.handleClick}>
         <p>Dad Clicked at: {this.state.clickTime}</p>
         <ContentPanel />
       </div>
@@ -60,26 +63,26 @@ class InnerPanel extends React.Component {
 
 class ContentPanel extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {clickTime:0};
-    this.handleClick=this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    console.log('React Event Son is fired');
-    this.setState({clickTime: new Date().getTime()})
+    super(props)
+    this.state = { clickTime: 0 }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    document.getElementById('son').addEventListener('click',function(e){
-      console.log('native Event son is fired');
+    document.getElementById('son').addEventListener('click', () => {
+      console.log('native Event son is fired')
     })
+  }
+
+  handleClick() {
+    console.log('React Event Son is fired')
+    this.setState({ clickTime: Date.now() })
   }
 
   render() {
     return (
       <div id="son" style={{ backgroundColor: 'lightGray', padding: 10 }} >
-        <p onClick={this.handleClick}>Son Clicked at: {this.state.clickTime} </p>
+        <p onClick={this.handleClick}>Son Clicked at: {this.state.clickTime}</p>
       </div>
     )
   }
