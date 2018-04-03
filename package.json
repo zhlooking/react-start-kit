@@ -10,17 +10,26 @@
     "clean": "rm -rf dist",
     "dev": "NODE_ENV=dev DEPLOY_ENV=dev webpack-dev-server --progress --colors --config ./build/webpack.dev.js --hot --host 127.0.0.1",
     "build": "npm run clean && cd build && NODE_ENV=production webpack --progress --profile --colors",
-    "build-test": "npm run clean && cd build && NODE_ENV=production DEPLOY_ENV=test webpack --progress --profile --colors"
+    "build-test": "npm run clean && cd build && NODE_ENV=production DEPLOY_ENV=test webpack --progress --profile --colors",
+    "test": "mocha --require @babel/register --require ./test/setup.js --require ignore-styles --recursive ./test"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.42",
-    "@babel/runtime": "^7.0.0-beta.42",
+    "@babel/core": "^7.0.0-beta.44",
+    "@babel/register": "^7.0.0-beta.44",
+    "@babel/runtime": "^7.0.0-beta.44",
     "babel-loader": "^8.0.0-beta.0",
-    "babel-preset-next": "^1.1.1",
+    "babel-preset-next": "^1.1.3",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "css-loader": "^0.28.7",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^2.30.1",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "^11.7.0",
+    "mocha": "^5.0.5",
     "node-sass": "^4.5.3",
     "postcss": "^6.0.13",
     "postcss-loader": "^2.0.8",
@@ -33,6 +42,8 @@
     "webpack-dev-server": "^2.5.1"
   },
   "dependencies": {
+    "mobx": "^4.1.1",
+    "mobx-react": "^5.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2"

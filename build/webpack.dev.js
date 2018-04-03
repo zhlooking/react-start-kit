@@ -44,8 +44,6 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
-            presets: ['next'],
-            plugins: ['react-hot-loader/babel'],
           }
         },
       }, {
