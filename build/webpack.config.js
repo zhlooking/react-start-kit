@@ -18,7 +18,7 @@ const toDefine = (configuration) => {
 
 module.exports = {
   entry: {
-    main: path.join(__dirname, '../src/index.js'),
+    main: path.join(__dirname, '../src'),
     vendor: ['react', 'react-dom'],
   },
   output: {
@@ -42,7 +42,7 @@ module.exports = {
       children: true,
       minChunks: 4,
     }),
-    // new webpack.optimize.ModuleConcatenationPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new ExtractTextPlugin({
       // contentHash https://goo.gl/VtpvRo
       filename: '[name].[contenthash:16].css',

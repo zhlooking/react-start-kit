@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { observer, inject } from 'mobx-react'
-import UserStore from '../store'
+import UserStore from '../store/user-store'
 import '../css/users.scss'
 
 @inject('userStore')
